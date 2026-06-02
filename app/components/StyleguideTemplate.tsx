@@ -1,17 +1,20 @@
 import Image from 'next/image';
 import CodeBlock from './CodeBlock';
+import PageTitle from './headings/PageTitle';
+import Panel from './Panel';
+import SectionTitle from './headings/SectionTitle';
 
 type CodeBlock = {
-    language: string,
-    code: string
+    language: string;
+    code: string;
 };
 
 type StyleguideProps = {
-    title: string, 
-    description: string,
-    img: string, 
-    imgAlt:string,
-    codeBlocks: CodeBlock[]
+    title: string;
+    description: string;
+    img: string;
+    imgAlt:string;
+    codeBlocks: CodeBlock[];
 };
 
 export default function StyleguideTemplate({
@@ -22,8 +25,8 @@ export default function StyleguideTemplate({
     codeBlocks,
 }: StyleguideProps){
     return(
-        <div>
-            <h1>{title}</h1>
+        <span>
+            <PageTitle>{title}</PageTitle>
             <Image 
                 src={img} 
                 alt={imgAlt} 
@@ -31,6 +34,8 @@ export default function StyleguideTemplate({
                 height={500}
             />
             <p>{description}</p>
+            <Panel className='flex flex-col gap-4'>
+                <SectionTitle>Kod</SectionTitle>
             {codeBlocks.map((block) => (
                 <CodeBlock 
                 key={block.language} 
@@ -38,6 +43,7 @@ export default function StyleguideTemplate({
                 code={block.code} 
                 />
             ))}
-        </div>
+            </Panel>
+        </span>
     );
 }

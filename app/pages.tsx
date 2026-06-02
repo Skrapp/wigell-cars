@@ -1,22 +1,36 @@
-export const mainNavigation = [
+export type PageItem = {
+    title: string;
+    href: string;
+    description?: string;
+    img?: string;
+    imgAlt?: string;
+}
+
+export const mainNavigation: PageItem[] = [
     {
-        titel: 'Hem',
+        title: 'Hem',
         href: '/',
         description: 'Startsidan för Wigells biluthyrning'
     },
     {
-        titel: 'Style guide',
+        title: 'Style guide',
         href: '/styleguide',
         description: 'Exempel och beskrivingningar av stil- och designval för Wigells biluthyrning'
     }
 ]
 
-export const styleGuideNavigation = [
+export const styleGuideNavigation: PageItem[] = [
     {
-        titel: 'Knappar',
+        title: 'Knappar',
         href: '/styleguide/buttons',
         description: 'Knappstilar och regler för olika knappfunktioner',
-        img: '/buttons.png',
+        img: 'imgs/wildpixar-buick-1400243_640.jpg',
         imgAlt: 'Exempelbild av knappar'
+    },{
+        title: 'Cards',
+        href: '/styleguide/cards',
+        description: 'Kortkomponenter och deras användning',
+        img: '/cards.png',
+        imgAlt: 'Exempelbild av kortkomponenter'
     }
 ]

@@ -1,4 +1,8 @@
-'use client';
+"use client";
+
+import { useState } from "react";
+import Button from "./Button";
+import CardTitle from "./headings/CardTitle";
 
 type CodeBlockProps = {
     language: string,
@@ -9,30 +13,31 @@ export default function CodeBlock({
     language,
     code
 }:CodeBlockProps){
+    const [copied, setCopied] = useState(false);
+
     function copyCode(){
         navigator.clipboard.writeText(code);
-
-        // Ta bort tidigare konfirmationer av kopieringar
-        // const earlierConfirmations = document.querySelectorAll(".btn-confirmation");
-        // for(let earlier of earlierConfirmations){
-        //     earlier.remove();
-        // }
-
-        // Lägger till en konfirmering av kopiering av kod
-        // const copyConfirmedElement = document.createElement('p');
-        // copyConfirmedElement.classList.add('btn-confirmation');
-        // copyConfirmedElement.innerText = 'Kod kopierad';
-        // codeBlock.appendChild(copyConfirmedElement);
         console.log('Kopierad kod:', code);
-        return;
+        setCopied(true);
+        // Dölj bekräftelsen efter 2 sekunder
+        setTimeout(()=> setCopied(false), 2000);
     }
     return(
-        <div className="code-block">
-            <h3>{language}</h3>
-            <pre>
-                <code>{code}</code>
-            </pre>
-            <button onClick={copyCode} style={{ border: 'solid 2px #fff' }}>Kopiera kod</button>
+        <div className="flex flex-col flex-wrap gap-2 items-start
+        bg-background border-button-border border-2
+        p-4">
+            <CardTitle>{language}</CardTitle>
+                <pre className="p-4 
+                bg-silver border-2 border-button-border rounded-md
+                w-full overflow-x-auto">
+                    <code>{code}</code>
+                </pre>
+            <Button onClick={copyCode}>
+                Kopiera kod
+            </Button>
+            {copied && (
+                <p className="text-sm text-green-600">kod kopierad</p>
+            )}
         </div>
     )
 }

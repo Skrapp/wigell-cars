@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Image from 'next/image';
+import Navigation from "./components/Navigation";
+import { mainNavigation } from "./pages";
 
 
 const geistSans = Geist({
@@ -30,10 +32,16 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <header className="flex flex-row "></header>
-        <h1 className="max-w-xs text-3xl font-semibold">logga här</h1>
-        {children}
-        </body>
+        <header className="flex flex-row ">
+          <Navigation pages={mainNavigation}/>
+        </header>
+        <main>{children}</main>
+        <footer className="flex flex-row gap-2">
+          <div>
+            <a href="https://facebook.se" className="icon-link"><i></i>face</a>
+          </div>
+        </footer>
+      </body>
     </html>
   );
 }
