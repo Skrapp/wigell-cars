@@ -6,7 +6,7 @@ type ButtonProps = {
     href?: string;
 };
 
-export default function ButtonStandard({
+export default function Button({
     children,
     onClick,
     href,
