@@ -13,7 +13,7 @@ export default function Card({
     className
 }: CardProps) {
     return (
-        <div className={`bg-white shadow ${className ?? ''}`}>
+        <div className={`bg-white shadow-lg ${className ?? ''}`}>
             {img && <img src={img} alt={imgAlt} className="w-full h-auto max-h-52 object-cover mb-4 overflow-hidden" />}
             <div className="flex flex-col gap-3 p-4 items-start">
                 {children}

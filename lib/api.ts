@@ -1,11 +1,11 @@
-type Car = {
+export type Car = {
     id: number;
     model: string;
     name: string;
     type: string;
     price: number;
     booked: boolean;
-    image: string;
+    imageSrc: string;
 
 };
 
