@@ -36,13 +36,14 @@ export default function RootLayout({
         <header className="flex flex-row ">
           <a href="/">
             <Image 
+              className="p-1"
               src="/imgs/KoncernLogga.png" 
               alt="Koncern Logga" 
               width={50} 
               height={50}
             />
           </a>
-          <Navigation pages={mainNavigation}/>
+          <Navigation className="flex-2/3" pages={mainNavigation}/>
           <UserStatus/>
         </header>
         <main>{children}</main>
