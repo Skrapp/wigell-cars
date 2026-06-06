@@ -6,7 +6,7 @@ type LogoutButtonProps = {
     className?:string;
 }
 
-export default async function LogoutButton({
+export default function LogoutButton({
     className
 }:LogoutButtonProps){
     

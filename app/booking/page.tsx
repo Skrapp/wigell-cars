@@ -3,14 +3,24 @@ import PageTitle from "../components/headings/PageTitle"
 import Button from "../components/Button"
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import BookingForm from "../components/forms/BookingForm";
 
-export default async function Booking(){
+type PageProps = {
+    searchParams: Promise<{
+        carId?: string;
+    }>;
+};
+
+export default async function Booking({
+    searchParams,
+}: PageProps) {
     const cookie = await cookies();
         const userCookie = cookie.get("user");
     
         if(!userCookie) redirect("/login");
     
         const user = JSON.parse(userCookie.value);
+        const {carId} = await searchParams;
     return(
         <div>
             <section className=" w-full 
@@ -26,12 +36,8 @@ export default async function Booking(){
                     </div>
                 </div>
             </section>
-            <section className="boxed-content">
-                <form>
-                    <label htmlFor="name">Användare</label>
-                    <input className="border" id="name" value={user.username} disabled></input>
-                    
-                </form>
+            <section className="boxed-content flex items-center justify-center ">
+                <BookingForm user={user} carId={carId}/>
             </section>
         </div>
     )

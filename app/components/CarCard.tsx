@@ -14,7 +14,7 @@ export default function CarCard({car}:CarProps){
             imgAlt={car.imageSrc ? `Bild av ${car.name} ${car.model}` : "Ingen nuvarande bild av bilen"}>
                 <h3 className="text-xl font-semibold">{car.name} {car.model}</h3>
                 <p className="text-gray-600">{car.price} kr/dag</p>
-                <Button href="/booking">Boka</Button>
+                <Button href={`/booking?carId=${car.id}`}>Boka</Button>
               </Card>
         )
 }
