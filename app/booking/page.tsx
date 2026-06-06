@@ -1,8 +1,16 @@
 
 import PageTitle from "../components/headings/PageTitle"
 import Button from "../components/Button"
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
-export default function Booking(){
+export default async function Booking(){
+    const cookie = await cookies();
+        const userCookie = cookie.get("user");
+    
+        if(!userCookie) redirect("/login");
+    
+        const user = JSON.parse(userCookie.value);
     return(
         <div>
             <section className=" w-full 
@@ -19,7 +27,11 @@ export default function Booking(){
                 </div>
             </section>
             <section className="boxed-content">
-                <form></form>
+                <form>
+                    <label htmlFor="name">Användare</label>
+                    <input className="border" id="name" value={user.username} disabled></input>
+                    
+                </form>
             </section>
         </div>
     )

@@ -4,6 +4,7 @@ import "./globals.css";
 import Image from 'next/image';
 import Navigation from "./components/Navigation";
 import { mainNavigation } from "./pages";
+import UserStatus from "./components/UserStatus";
 
 
 const geistSans = Geist({
@@ -33,7 +34,16 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <header className="flex flex-row ">
+          <a href="/">
+            <Image 
+              src="/imgs/KoncernLogga.png" 
+              alt="Koncern Logga" 
+              width={50} 
+              height={50}
+            />
+          </a>
           <Navigation pages={mainNavigation}/>
+          <UserStatus/>
         </header>
         <main>{children}</main>
         <footer className="flex flex-row gap-2">
