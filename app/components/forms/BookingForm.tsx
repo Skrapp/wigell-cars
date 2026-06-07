@@ -3,17 +3,18 @@
 import { useState } from "react";
 import FormField from "./FormField";
 import Button from "../Button";
-import type { User } from "@/lib/api";
+import type { Car, User } from "@/lib/types";
+import Link from "next/link";
 
 type BookingFormProps = {
     user:User;
-    carId:number;
+    car:Car;
     className?:string;
 }
 
 export default function BookingForm({
     user,
-    carId,
+    car,
     className
 }:BookingFormProps) {
     const [startDate, setStartDate] = useState("");
@@ -25,8 +26,8 @@ export default function BookingForm({
         e.preventDefault();
 
         const booking = {
-            usesrId: user.userId,
-            carId,
+            userId: user.userId,
+            carId: car.id,
             startDate,
             endDate,
         };
@@ -39,19 +40,14 @@ export default function BookingForm({
     return (
         <form
             onSubmit={handleSubmit}
-            className="
-                flex
-                flex-col
-                gap-4
-                max-w-md
-            "
-        >
+            className={`flex flex-col gap-4 max-w-md ${className}`}>
+
             <p>Bil bokas för inloggad användare: {user.username}</p>
 
             <FormField
                 label="Bil ID"
                 name="carId"
-                value={carId.toString()}
+                value={car.id.toString()}
                 onChange={()=>{}}
                 disabled
             />
@@ -71,6 +67,8 @@ export default function BookingForm({
                 value={endDate}
                 onChange={setEndDate}
             />
+
+            {/* TODO add totalprice */}
 
             <Button type="submit">Boka</Button>
         </form>

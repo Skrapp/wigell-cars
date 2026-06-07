@@ -4,23 +4,37 @@ import Button from "../components/Button"
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import BookingForm from "../components/forms/BookingForm";
+import { getCarById } from "@/lib/api";
+import { getUser } from "@/lib/auth";
 
 type PageProps = {
     searchParams: Promise<{
-        carId?: string;
+        carId: string;
     }>;
 };
 
 export default async function Booking({
     searchParams,
 }: PageProps) {
-    const cookie = await cookies();
-        const userCookie = cookie.get("user");
-    
-        if(!userCookie) redirect("/login");
-    
-        const user = JSON.parse(userCookie.value);
-        const {carId} = await searchParams;
+    const user = await getUser();
+    if(!user) {
+        //TODO meddelande varför man omdirigeras
+        redirect("/login"); 
+    }
+
+    const {carId} = await searchParams;
+
+    console.log(`carId: ${carId}`);
+
+    if (carId === undefined || isNaN(Number(carId))) redirect("/cars");
+    console.log("carID registrerat")
+
+    const car = await getCarById(Number(carId), user.auth);
+    if(!car) {
+        redirect("/cars");
+        //TODO meddelande varför man omdirigeras
+    }
+
     return(
         <div>
             <section className=" w-full 
@@ -30,14 +44,12 @@ export default async function Booking({
                     text-center text-white">
                         <PageTitle>Wigells biluthyrning</PageTitle>
                         <p className="text-xl">Ta din åktur till nästa nivå.</p>
-                        <Button href="/cars">
-                        Se alla bilar
-                        </Button>
+                        <Button href="/cars">Se alla bilar</Button>
                     </div>
                 </div>
             </section>
             <section className="boxed-content flex items-center justify-center ">
-                <BookingForm user={user} carId={carId}/>
+                <BookingForm user={user} car={car}/>
             </section>
         </div>
     )

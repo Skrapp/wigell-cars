@@ -1,6 +1,7 @@
 "use client"
 import { login } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import Button from "../components/Button";
 import { useState} from "react";
 import { FormEvent} from "react";
 
@@ -19,10 +20,16 @@ export default function Login(){
             console.log(`Inloggad: ${user.username}`)
             loggedInUser = user.username;
 
+            const auth = btoa(`${username}:${password}`);
+            const userWithAuth = {
+                ...user,
+                auth
+            };
+
             await fetch("api/auth",{
                 method: "POST",
                 headers: {"Content-Type":"application/json"},
-                body:JSON.stringify(user),            
+                body:JSON.stringify(userWithAuth),            
             });
             router.refresh();
         }catch(error){
@@ -30,6 +37,7 @@ export default function Login(){
         }
     }
 
+    //TODO gör till component => LoginForm
     return (
         <div className="boxed-content">
             <h1>Logga in</h1>
@@ -48,7 +56,7 @@ export default function Login(){
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Logga in</button>
+                <Button type="submit">Logga in</Button>
             </form>
         </div>
     );
