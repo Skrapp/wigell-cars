@@ -9,9 +9,16 @@ export type Car = {
 
 };
 
+export type Booking ={
+    userId: number;
+    carId: number
+    fromDate: string,
+    toDate: string,
+}
+
 export type User = {
     isAdmin:boolean;
     userId:number;
     username:string;
-    auth: string;
+    credentials: string;
 };

@@ -29,7 +29,7 @@ export default async function Booking({
     if (carId === undefined || isNaN(Number(carId))) redirect("/cars");
     console.log("carID registrerat")
 
-    const car = await getCarById(Number(carId), user.auth);
+    const car = await getCarById(Number(carId), user.credentials);
     if(!car) {
         redirect("/cars");
         //TODO meddelande varför man omdirigeras

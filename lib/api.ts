@@ -1,4 +1,4 @@
-import { Car, User } from "./types";
+import { Booking, Car, User } from "./types";
 const baseUrl = `http://localhost:8080`;
 
 
@@ -36,6 +36,30 @@ export async function getCarById(
         return data;
     }catch(error){
         console.log(`Gick inte att hämta bil med id ${carId} från databas: `, error);
+        return null;
+    }    
+}
+
+export async function bookCar(
+    booking:Booking,
+    credentials:string
+){
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/bookings`, {
+            method:"POST",
+            headers:{
+                "Authorization": `Basic ${credentials}`,
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify(booking),
+        });
+
+        if(!response.ok){
+            throw new Error("Fetch failed:"+ response.status + response.statusText);
+        }
+        return response;
+    }catch(error){
+        console.log(`Gick inte att boka bilen: `, error);
         return null;
     }    
 }

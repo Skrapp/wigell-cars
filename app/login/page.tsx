@@ -20,16 +20,16 @@ export default function Login(){
             console.log(`Inloggad: ${user.username}`)
             loggedInUser = user.username;
 
-            const auth = btoa(`${username}:${password}`);
-            const userWithAuth = {
+            const credentials = btoa(`${username}:${password}`);
+            const userWithCredentials = {
                 ...user,
-                auth
+                credentials
             };
 
-            await fetch("api/auth",{
+            await fetch("/api/auth",{
                 method: "POST",
                 headers: {"Content-Type":"application/json"},
-                body:JSON.stringify(userWithAuth),            
+                body:JSON.stringify(userWithCredentials),            
             });
             router.refresh();
         }catch(error){

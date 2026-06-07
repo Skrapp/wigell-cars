@@ -4,12 +4,14 @@ type ButtonProps = {
     children: React.ReactNode;
     onClick?: () => void;
     href?: string;
+    type?: "button" | "submit" | "reset";
 };
 
 export default function Button({
     children,
     onClick,
     href,
+    type = "button",
 }:ButtonProps){
     const classes = `text-center uppercase p-2 
         bg-button border-button-border border-2 rounded-md 
@@ -26,6 +28,7 @@ export default function Button({
 
     return(
         <button
+        type={type}
         onClick={onClick}
         className={classes}>
             {children}

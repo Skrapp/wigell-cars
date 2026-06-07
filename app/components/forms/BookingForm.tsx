@@ -3,8 +3,9 @@
 import { useState } from "react";
 import FormField from "./FormField";
 import Button from "../Button";
-import type { Car, User } from "@/lib/types";
+import type { Booking, Car, User } from "@/lib/types";
 import Link from "next/link";
+import { bookCar } from "@/lib/api";
 
 type BookingFormProps = {
     user:User;
@@ -25,16 +26,19 @@ export default function BookingForm({
     ) {
         e.preventDefault();
 
-        const booking = {
+        const newBooking:Booking = {
             userId: user.userId,
             carId: car.id,
-            startDate,
-            endDate,
+            fromDate: startDate,
+            toDate: endDate,
         };
 
-        console.log(booking);
+        console.log(newBooking);
 
         // Här kommer API-anrop senare
+        const response = bookCar(newBooking, user.credentials); 
+
+        console.log(response);
     }
 
     return (

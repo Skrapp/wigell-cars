@@ -2,12 +2,12 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(request:Request){
-    const userWithAuth = await request.json();
+    const userWithCredentials = await request.json();
     const cookie = await cookies();
 
     cookie.set(
         "user",
-        JSON.stringify(userWithAuth),{
+        JSON.stringify(userWithCredentials),{
             httpOnly:true, //js kan ej läsa
             secure:false, //i produktion ändra till true så att det endast skickas över https
             path: "/", //cookie gäller över hela webbplatsen
