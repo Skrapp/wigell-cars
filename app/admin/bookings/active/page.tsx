@@ -1,15 +1,14 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import PageTitle from "@/app/components/headings/PageTitle";
-import { getBookings, getCars, getUsers } from "@/lib/api";
+import { getActiveBookings, getCars, getUsers } from "@/lib/api";
 import BookingTable from "@/app/components/tables/BookingTable";
-import { BookingView, User, UserCookie } from "@/lib/types";
+import { BookingView, UserCookie } from "@/lib/types";
 import Button from "@/app/components/Button";
 
 export default async function Admin(){
     const cookie = await cookies();
     const userCookie = cookie.get("user");
-
 
     if(!userCookie) redirect("/login");
 
@@ -17,7 +16,7 @@ export default async function Admin(){
 
     if(!user.isAdmin) redirect("/login");
 
-    const bookings = await getBookings(user.credentials);
+    const bookings = await getActiveBookings(user.credentials);
     const cars = await getCars();
     const users = await getUsers(user.credentials);
 
@@ -43,10 +42,9 @@ export default async function Admin(){
         <div className="boxed-content flex flex-col gap-4">
             <PageTitle>Adminpanelen - Bokningar</PageTitle>
             <div>
-                <Button href="/admin/bookings/active">Aktiva bokningar</Button>
+                <Button href="/admin/bookings">Alla bokningar</Button>
             </div>
             <div>
-                
                 <BookingTable initialBookings={bookingViews} credentials={user.credentials}/>
             </div>
         </div>

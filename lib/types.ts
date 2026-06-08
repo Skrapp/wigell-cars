@@ -15,6 +15,7 @@ export type Booking ={
     carId: number;
     fromDate: string;
     toDate: string;
+    active: boolean;
 }
 
 export type UpdateBooking = {
@@ -42,6 +43,7 @@ export type BookingView = {
     userLastName:string;
     fromDate:string;
     toDate:string;
+    active:boolean;
 }
 
 export type UserCookie = {

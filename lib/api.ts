@@ -62,6 +62,28 @@ export async function getBookings(
     }
 }
 
+export async function getActiveBookings(
+    credentials:string
+) : Promise<Booking[]> {
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/bookings/active`, {
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error(`Fetch failed: ${response.status} ${response.body?.values}`)
+        }
+        const data = await response.json();
+        return data;
+
+    }catch(error){
+        console.log("Kunde ej hämta bokningar: ", error);
+        return [];
+    }
+}
+
 export async function getBookingById(
     bookingId:number, 
     credentials:string
@@ -139,6 +161,29 @@ export async function deleteBooking(
     try{
         const response = await fetch(`${baseUrl}/api/v1/bookings/${bookingId}`, {
             method:"DELETE",
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error("Fetch failed:"+ response.status + response.statusText);
+        }
+        console.log("Bokning togs bort");
+        return true;
+    }catch(error){
+        console.error(`Gick inte att radera bokningen: `, error);
+        return false;
+    }    
+} 
+
+export async function returnBooking(
+    bookingId:number,
+    credentials:string
+) : Promise<boolean>{
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/bookings/return/${bookingId}`, {
+            method:"PUT",
             headers:{
                 "Authorization": `Basic ${credentials}`
             }
