@@ -5,7 +5,7 @@ type ButtonProps = {
     onClick?: () => void;
     href?: string;
     type?: "button" | "submit" | "reset";
-    variant?: "destructive" | "warning" | "icon" | "standard"
+    variant?: "destructive" | "warning" | "icon" |"standard"
     disabled?: boolean;
 };
 

@@ -1,11 +1,11 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import PageTitle from "../components/headings/PageTitle";
-import { getBookings, getCars, getUsers } from "@/lib/api";
-import BookingTable from "../components/tables/BookingTable";
-import { BookingView } from "@/lib/types";
+import Card from "../components/Card";
+import CardTitle from "../components/headings/CardTitle";
+import Button from "../components/Button";
 
-export default async function Admin(){
+export default async function AdminPage(){
     const cookie = await cookies();
     const userCookie = cookie.get("user");
 
@@ -15,32 +15,25 @@ export default async function Admin(){
 
     if(!user.isAdmin) redirect("/login");
 
-    const bookings = await getBookings(user.credentials);
-    const cars = await getCars();
-    const users = await getUsers(user.credentials);
-
-    const bookingViews: BookingView[] = bookings.map((booking) => {
-        const car = cars.find(car => car.id === booking.carId); //find returns the first object that returns true
-        const user = users.find(user => user.id === booking.userId);
-
-        return {
-            id:booking.id,
-            carId:booking.carId,
-            carModel:car?.model ?? "",
-            carName:car?.name ?? "",
-            userId:booking.userId,
-            userFirstName:user?.firstName ?? "",
-            userLastName:user?.lastName ?? "",
-            fromDate:booking.fromDate,
-            toDate:booking.toDate,
-        }
-    })
-
     return(
         <div className="boxed-content">
             <PageTitle>Adminpanelen</PageTitle>
-            <div>
-                <BookingTable bookings={bookingViews}/>
+            <div className=" flex flex-row gap-4">
+                <Card className="flex-1">
+                    <CardTitle>Hantera bilar</CardTitle>
+                    <p>Hantera alla bilar</p>
+                    <Button href="/admin/cars">Bilar</Button>
+                </Card>
+                <Card className="flex-1">
+                    <CardTitle>Hantera användare</CardTitle>
+                    <p>Hantera användare</p>
+                    <Button href="/admin/users">Användare</Button>
+                </Card>
+                <Card className="flex-1">
+                    <CardTitle>Hantera bokningar</CardTitle>
+                    <p>Hantera alla bokningar</p>
+                    <Button href="/admin/bookings">Bokningar</Button>
+                </Card>
             </div>
         </div>
     )

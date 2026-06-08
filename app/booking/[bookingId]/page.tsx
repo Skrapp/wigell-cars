@@ -4,15 +4,15 @@ import { redirect } from "next/navigation";
 import EditBookingForm from "@/app/components/forms/EditBookingForm";
 
 
-type BookingPageProps = {
+type EditBookingPageProps = {
     params: Promise<{
         bookingId: string;
     }>;
 };
 
-export default async function BookingPage({
+export default async function EditBookingPage({
     params,
-}: BookingPageProps) {
+}: EditBookingPageProps) {
 
     const user = await getUser();
 

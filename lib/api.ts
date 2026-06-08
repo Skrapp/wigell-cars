@@ -132,6 +132,29 @@ export async function updateBooking(
     }    
 }
 
+export async function deleteBooking(
+    bookingId:number,
+    credentials:string
+) : Promise<boolean>{
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/bookings/${bookingId}`, {
+            method:"DELETE",
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error("Fetch failed:"+ response.status + response.statusText);
+        }
+        console.log("Bokning togs bort");
+        return true;
+    }catch(error){
+        console.error(`Gick inte att radera bokningen: `, error);
+        return false;
+    }    
+}
+
 export async function getUsers(
     credentials:string
 ):Promise<User[]> {
