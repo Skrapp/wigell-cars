@@ -7,6 +7,7 @@ type ButtonProps = {
     type?: "button" | "submit" | "reset";
     variant?: "destructive" | "warning" | "icon" |"standard"
     disabled?: boolean;
+    className?:string;
 };
 
 export default function Button({
@@ -16,6 +17,7 @@ export default function Button({
     type = "button",
     variant = "standard",
     disabled = false,
+    className,
 }:ButtonProps){
     const baseClasses = `text-center uppercase p-2 
         bg-button border-button-border border-2 rounded-md 
@@ -42,7 +44,7 @@ export default function Button({
 
     if(href){
         return(
-            <Link href={href} className={`${baseClasses} ${variantClasses}`}>
+            <Link href={href} className={`${baseClasses} ${variantClasses} ${className}`}>
                 {children}
             </Link>
         );

@@ -6,7 +6,9 @@ export type Car = {
     price: number;
     booked: boolean;
     imageSrc: string;
-
+    feature1: string;
+    feature2: string;
+    feature3: string;
 };
 
 export type Booking ={
@@ -33,6 +35,24 @@ export type NewBooking ={
     toDate: string;
 }
 
+export type NewUser = {
+    firstName: string;
+    lastName: string;
+    username: string;
+    phone: string;
+    email: string;
+    password: string;
+};
+export type NewCar = {
+    name: string;
+    model: string;
+    type: string;
+    price: number;
+    imageSrc: string;
+    feature1?: string;
+    feature2?: string;
+    feature3?: string;
+};
 export type BookingView = {
     id:number;
     carId:number;

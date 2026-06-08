@@ -4,6 +4,10 @@ import { redirect, useRouter } from "next/navigation";
 import Button from "../components/Button";
 import { useState} from "react";
 import { FormEvent} from "react";
+import Link from "next/link";
+import LoginForm from "../components/forms/LoginForm";
+import PageTitle from "../components/headings/PageTitle";
+import Card from "../components/Card";
 
 export default function Login(){
     const [username, setUsername] = useState("");
@@ -40,25 +44,12 @@ export default function Login(){
 
     //TODO gör till component => LoginForm
     return (
-        <div className="boxed-content">
-            <h1>Logga in</h1>
-            <form onSubmit={handleLogin}>
-                <input
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <Button type="submit">Logga in</Button>
-            </form>
+        <div className="boxed-content m-auto">
+            <PageTitle>Logga in</PageTitle>
+            <Card>
+            <LoginForm/>
+            <p>Har du ingen användare? <Link className="underline cursor-pointer" href="login/new-user">Skapa en ny</Link></p>
+            </Card>
         </div>
     );
 }

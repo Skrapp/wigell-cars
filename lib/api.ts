@@ -1,4 +1,4 @@
-import { Booking, Car, NewBooking, UpdateBooking, UserCookie, User } from "./types";
+import { Booking, Car, NewBooking, NewCar, NewUser, UpdateBooking, UserCookie, User } from "./types";
 const baseUrl = `http://localhost:8080`;
 
 
@@ -128,6 +128,120 @@ export async function bookCar(
         console.log(`Gick inte att boka bilen: `, error);
         return null;
     }    
+}
+
+export async function registerUser(
+    newUser: NewUser
+) {
+    try {
+        const response = await fetch(`${baseUrl}/api/v1/users`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newUser),
+        });
+
+        if (!response.ok) {
+            throw new Error("Fetch failed:" + response.status + response.statusText);
+        }
+
+        return response;
+    } catch (error) {
+        console.log(`Gick inte att registrera användaren: `, error);
+        return null;
+    }
+}
+
+export async function createCar(
+    newCar: NewCar,
+    credentials:string
+) {
+    try {
+        const response = await fetch(`${baseUrl}/api/v1/cars`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Basic ${credentials}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newCar),
+        });
+
+        if(!response.ok){
+            throw new Error("Fetch failed:" + response.status + response.statusText);
+        }
+        return response;
+    } catch(error) {
+        console.log(`Gick inte att skapa bilen: `, error);
+        return null;
+    }
+}
+
+export async function updateCar(
+    car: Car,
+    credentials:string
+) {
+    try {
+        const response = await fetch(`${baseUrl}/api/v1/cars/${car.id}`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Basic ${credentials}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(car),
+        });
+
+        if(!response.ok){
+            throw new Error("Fetch failed:" + response.status + response.statusText);
+        }
+        return response;
+    } catch(error) {
+        console.log(`Gick inte att uppdatera bilen: `, error);
+        return null;
+    }
+}
+
+export async function deleteCar(
+    carId:number,
+    credentials:string
+) : Promise<boolean>{
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/cars/${carId}`, {
+            method:"DELETE",
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error("Fetch failed:" + response.status + response.statusText);
+        }
+        return true;
+    }catch(error){
+        console.error(`Gick inte att radera bilen: `, error);
+        return false;
+    }
+}
+
+export async function uploadCarImage(
+    file: File
+) : Promise<string | null> {
+    try {
+        const formData = new FormData();
+        formData.append("image", file);
+        const response = await fetch("/api/cars/upload", {
+            method: "POST",
+            body: formData,
+        });
+        if(!response.ok){
+            throw new Error("Upload failed:" + response.status + response.statusText);
+        }
+        const data = await response.json();
+        return data.imageSrc ?? null;
+    } catch(error){
+        console.error("Gick inte att ladda upp bilbild: ", error);
+        return null;
+    }
 }
 
 export async function updateBooking(
