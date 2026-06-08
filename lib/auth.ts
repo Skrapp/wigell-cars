@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import { User } from "./types";
+import { UserCookie } from "./types";
 
-export async function getUser():Promise<User | null>{
+export async function getUser():Promise<UserCookie | null>{
     const cookie = await cookies();
     const userCookie = cookie.get("user");
         

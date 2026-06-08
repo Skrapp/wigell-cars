@@ -6,6 +6,7 @@ type ButtonProps = {
     href?: string;
     type?: "button" | "submit" | "reset";
     variant?: "destructive" | "warning" | "icon" | "standard"
+    disabled?: boolean;
 };
 
 export default function Button({
@@ -14,11 +15,13 @@ export default function Button({
     href,
     type = "button",
     variant = "standard",
+    disabled = false,
 }:ButtonProps){
     const baseClasses = `text-center uppercase p-2 
         bg-button border-button-border border-2 rounded-md 
         hover:cursor-pointer  
-        transition-all duration-300`
+        transition-all duration-300
+        ${disabled ? "opacity-50 cursor-not-allowed" : ""}`
 
     let variantClasses = "";
 
@@ -49,6 +52,7 @@ export default function Button({
         <button
         type={type}
         onClick={onClick}
+        disabled={disabled}
         className={`${baseClasses} ${variantClasses}`}>
             {children}
         </button>

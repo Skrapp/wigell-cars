@@ -1,4 +1,4 @@
-import { Booking, Car, NewBooking, User } from "./types";
+import { Booking, Car, NewBooking, UpdateBooking, UserCookie, User } from "./types";
 const baseUrl = `http://localhost:8080`;
 
 
@@ -65,7 +65,7 @@ export async function getBookings(
 export async function getBookingById(
     bookingId:number, 
     credentials:string
-): Promise<Car | null> {
+): Promise<Booking | null> {
     try{
         const response = await fetch(`${baseUrl}/api/v1/bookings/${bookingId}`, {
             headers:{
@@ -108,6 +108,30 @@ export async function bookCar(
     }    
 }
 
+export async function updateBooking(
+    booking:UpdateBooking,
+    credentials:string
+) {
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/bookings/${booking.id}`, {
+            method:"PUT",
+            headers:{
+                "Authorization": `Basic ${credentials}`,
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify(booking),
+        });
+
+        if(!response.ok){
+            throw new Error("Fetch failed:"+ response.status + response.statusText);
+        }
+        return response;
+    }catch(error){
+        console.log(`Gick inte att uppdatera bokningen: `, error);
+        return null;
+    }    
+}
+
 export async function getUsers(
     credentials:string
 ):Promise<User[]> {
@@ -130,11 +154,34 @@ export async function getUsers(
     }
 }
 
+export async function getUserById(
+    userId:number,
+    credentials:string
+):Promise<User|null> {
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/users/${userId}`, {
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error(`Fetch failed: ${response.status} ${response.body?.values}`)
+        }
+        const data = await response.json();
+        return data;
+
+    }catch(error){
+        console.log("Kunde ej hämta användare: ", error);
+        return null;
+    }
+}
+
 
 export async function login(
     username:string, 
     password:string
-):Promise<User> {
+):Promise<UserCookie> {
     const response = await fetch(`${baseUrl}/api/v1/auth/login`, {
         method:"POST",
         headers: {"Content-Type": "application/json"},

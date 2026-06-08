@@ -16,13 +16,12 @@ export default async function Admin(){
     if(!user.isAdmin) redirect("/login");
 
     const bookings = await getBookings(user.credentials);
-    console.log(bookings);
     const cars = await getCars();
-    // const users = await getUsers(user.credentials);
+    const users = await getUsers(user.credentials);
 
     const bookingViews: BookingView[] = bookings.map((booking) => {
         const car = cars.find(car => car.id === booking.carId); //find returns the first object that returns true
-        // const user = users.find(user => user.userId === booking.userId);
+        const user = users.find(user => user.id === booking.userId);
 
         return {
             id:booking.id,
@@ -30,8 +29,8 @@ export default async function Admin(){
             carModel:car?.model ?? "",
             carName:car?.name ?? "",
             userId:booking.userId,
-            userFirstName:"name",
-            userLastName:"name",
+            userFirstName:user?.firstName ?? "",
+            userLastName:user?.lastName ?? "",
             fromDate:booking.fromDate,
             toDate:booking.toDate,
         }

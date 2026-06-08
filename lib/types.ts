@@ -17,6 +17,14 @@ export type Booking ={
     toDate: string;
 }
 
+export type UpdateBooking = {
+    id: number;
+    userId: number | null;
+    carId: number | null;
+    fromDate: string | null;
+    toDate: string | null;
+}
+
 export type NewBooking ={
     userId: number;
     carId: number;
@@ -36,9 +44,20 @@ export type BookingView = {
     toDate:string;
 }
 
-export type User = {
+export type UserCookie = {
     isAdmin:boolean;
     userId:number;
     username:string;
     credentials: string;
 };
+
+export type User = {
+    id:number;
+    firstName: string;
+    lastName: string;
+    username:string; 
+    phone:string;
+    email:string;
+    noOfOrders: number;
+    role:string;
+}

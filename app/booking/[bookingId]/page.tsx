@@ -1,6 +1,7 @@
-import { getBookingById } from "@/lib/api";
+import { getBookingById, getUserById } from "@/lib/api";
 import { getUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import EditBookingForm from "@/app/components/forms/EditBookingForm";
 
 
 type BookingPageProps = {
@@ -27,11 +28,20 @@ export default async function BookingPage({
         return <p>Ogiltigt ID</p>;
     }
 
-    const booking = await getBookingById(id, user?.credentials);
+    const booking = await getBookingById(id, user.credentials);
+
+    if(!booking){
+        return <p>Finns ingen bokning med id {id}</p>
+    }
+
+    const bookingOwner = await getUserById(booking?.userId, user.credentials);
+
+    
 
     return (
         <div>
-            Bokning: {booking?.id}
+            <p>Bokning: {booking?.id}</p>
+            <EditBookingForm booking={booking} owner={bookingOwner} credentials={user.credentials} />
         </div>
     );
 }
