@@ -245,6 +245,52 @@ export async function getUserById(
     }
 }
 
+export async function updateUser(
+    user: User,
+    credentials:string
+) {
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/users/${user.id}`, {
+            method:"PUT",
+            headers:{
+                "Authorization": `Basic ${credentials}`,
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify(user),
+        });
+
+        if(!response.ok){
+            throw new Error("Fetch failed:"+ response.status + response.statusText);
+        }
+        return response;
+    }catch(error){
+        console.log(`Gick inte att uppdatera användaren: `, error);
+        return null;
+    }
+}
+
+export async function deleteUser(
+    userId:number,
+    credentials:string,
+) : Promise<boolean>{
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/users/${userId}`, {
+            method:"DELETE",
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error("Fetch failed:"+ response.status + response.statusText);
+        }
+        console.log("Användare togs bort");
+        return true;
+    }catch(error){
+        console.error(`Gick inte att radera användaren: `, error);
+        return false;
+    }    
+} 
 
 export async function login(
     username:string, 

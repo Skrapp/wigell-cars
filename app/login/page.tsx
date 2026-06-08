@@ -1,6 +1,6 @@
 "use client"
 import { login } from "@/lib/api";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Button from "../components/Button";
 import { useState} from "react";
 import { FormEvent} from "react";
@@ -32,6 +32,7 @@ export default function Login(){
                 body:JSON.stringify(userWithCredentials),            
             });
             router.refresh();
+            redirect("/")
         }catch(error){
             console.error("Login error: ", error);
         }

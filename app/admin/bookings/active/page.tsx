@@ -6,7 +6,7 @@ import BookingTable from "@/app/components/tables/BookingTable";
 import { BookingView, UserCookie } from "@/lib/types";
 import Button from "@/app/components/Button";
 
-export default async function Admin(){
+export default async function ActiveBookingsPage(){
     const cookie = await cookies();
     const userCookie = cookie.get("user");
 

@@ -2,6 +2,8 @@ import { getBookingById, getUserById } from "@/lib/api";
 import { getUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import EditBookingForm from "@/app/components/forms/EditBookingForm";
+import PageTitle from "@/app/components/headings/PageTitle";
+import Card from "@/app/components/Card";
 
 
 type EditBookingPageProps = {
@@ -36,12 +38,20 @@ export default async function EditBookingPage({
 
     const bookingOwner = await getUserById(booking?.userId, user.credentials);
 
-    
+    //TODO bild på bil
 
     return (
-        <div>
-            <p>Bokning: {booking?.id}</p>
-            <EditBookingForm booking={booking} owner={bookingOwner} credentials={user.credentials} />
+        <div className="boxed-content flex flex-col gap-4">
+            <PageTitle>Bokning: {booking.id}</PageTitle>
+            <Card>
+                <p className="text-center">Bokning: {booking?.id}</p>
+                <EditBookingForm 
+                    booking={booking} 
+                    owner={bookingOwner} 
+                    credentials={user.credentials} 
+                    className="m-auto"
+                />
+            </Card>
         </div>
     );
 }
