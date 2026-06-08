@@ -7,8 +7,11 @@
   --button-border:#00000050;
   --silver: #C8D3D5;
   --jade-green: #0CCA4A;
-  --destructive: #C12424;
-  --destructive-hover: #DF5353;
+  --destructive: #c46767;
+  --destructive-hover: #d48b8b;
+  --destuctive-text: #962323;
+  --warning: #fdff86;
+  --warning-hover: #feffb0;
 } 
 
 @theme inline {
@@ -20,6 +23,7 @@
   --color-jade-green: var(--jade-green);
   --color-destructive: var(--destructive);
   --color-destructive-hover: var(--destructive-hover);
+  --color-destructive-text: var(--destructive-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

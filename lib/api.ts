@@ -1,4 +1,4 @@
-import { Booking, Car, User } from "./types";
+import { Booking, Car, NewBooking, User } from "./types";
 const baseUrl = `http://localhost:8080`;
 
 
@@ -40,8 +40,52 @@ export async function getCarById(
     }    
 }
 
+export async function getBookings(
+    credentials:string
+):Promise<Booking[]> {
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/bookings`, {
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error(`Fetch failed: ${response.status} ${response.body?.values}`)
+        }
+        const data = await response.json();
+        return data;
+
+    }catch(error){
+        console.log("Kunde ej hämta bokningar: ", error);
+        return [];
+    }
+}
+
+export async function getBookingById(
+    bookingId:number, 
+    credentials:string
+): Promise<Car | null> {
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/bookings/${bookingId}`, {
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error(`Fetch failed: ${response.status} ${response.body?.values}`);
+        }
+        const data = await response.json();
+        return data;
+    }catch(error){
+        console.log(`Gick inte att hämta bokning med id ${bookingId} från databas: `, error);
+        return null;
+    }    
+}
+
 export async function bookCar(
-    booking:Booking,
+    newBooking:NewBooking,
     credentials:string
 ){
     try{
@@ -51,7 +95,7 @@ export async function bookCar(
                 "Authorization": `Basic ${credentials}`,
                 "Content-Type":"application/json"
             },
-            body: JSON.stringify(booking),
+            body: JSON.stringify(newBooking),
         });
 
         if(!response.ok){
@@ -63,6 +107,29 @@ export async function bookCar(
         return null;
     }    
 }
+
+export async function getUsers(
+    credentials:string
+):Promise<User[]> {
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/users`, {
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error(`Fetch failed: ${response.status} ${response.body?.values}`)
+        }
+        const data = await response.json();
+        return data;
+
+    }catch(error){
+        console.log("Kunde ej hämta användare: ", error);
+        return [];
+    }
+}
+
 
 export async function login(
     username:string, 

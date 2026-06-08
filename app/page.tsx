@@ -7,7 +7,6 @@ import CarCard from "./components/CarCard";
 
 export default async function Home() {
   const cars = await getCars();
-  console.log(cars);
   return (
     <div>
       <section className=" w-full 

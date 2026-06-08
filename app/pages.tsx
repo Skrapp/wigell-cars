@@ -17,6 +17,14 @@ export const mainNavigation: PageItem[] = [
         href: '/styleguide',
         description: 'Exempel och beskrivingningar av stil- och designval för Wigells biluthyrning'
     }
+];
+
+export const adminNavigation: PageItem[] = [
+    {
+        title: 'Admin',
+        href: '/admin',
+        description: 'Adminpanel'
+    }
 ]
 
 export const styleGuideNavigation: PageItem[] = [
@@ -33,4 +41,4 @@ export const styleGuideNavigation: PageItem[] = [
         img: '/cards.png',
         imgAlt: 'Exempelbild av kortkomponenter'
     }
-]
+];
