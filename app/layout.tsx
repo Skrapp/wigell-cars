@@ -46,7 +46,7 @@ export default async function RootLayout({
               height={100}
             />
           </a>
-          <Navigation className="flex-2/3 max-w-[1000px]" 
+          <Navigation className="flex-2/3 max-w-250" 
           pages={user 
             ? user.isAdmin 
               ? mainNavigation.concat(userNavigation).concat(adminNavigation)
@@ -55,8 +55,8 @@ export default async function RootLayout({
           <UserStatus/>
 
         </header>
-        <main>{children}</main>
-            <AdFooter imageSrc="/imgs/ad-detberorpa.png" href="https://www.linkedin.com/in/tomas-wigell-06343a198/"/>
+        <main className="mb-34">{children}</main>
+        <AdFooter imageSrc="/imgs/ad-detberorpa.png" href="https://www.linkedin.com/in/tomas-wigell-06343a198/"/>
           
       </body>
     </html>

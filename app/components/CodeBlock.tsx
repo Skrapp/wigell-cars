@@ -23,7 +23,7 @@ export default function CodeBlock({
         setTimeout(()=> setCopied(false), 2000);
     }
     return(
-        <div className="flex flex-col flex-wrap gap-2 items-start
+        <div className="flex flex-col flex-wrap gap-2 items-start w-full
         bg-background border-button-border border-2
         p-4">
             <CardTitle>{language}</CardTitle>

@@ -1,12 +1,12 @@
-import Image from "next/image";
 import PageTitle from "./components/headings/PageTitle";
 import SectionTitle from "./components/headings/SectionTitle";
 import Button from "./components/Button";
 import { getCars } from "@/lib/api";
 import CarCard from "./components/CarCard";
-
 export default async function Home() {
+  
   const cars = await getCars();
+
   return (
     <div>
       <section className=" w-full 

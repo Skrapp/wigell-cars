@@ -14,7 +14,7 @@ export default function AdFooter({ href, imageSrc }: AdProps) {
 
   return (
     <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
-      <div className="max-w-full h-28  relative">
+      <div className="max-w-full h-32  relative">
         <button
           onClick={() => setIsVisible(false)}
           className="min-h-10 min-w-10 absolute top-2 right-2
@@ -22,7 +22,7 @@ export default function AdFooter({ href, imageSrc }: AdProps) {
         >
           X
         </button>
-        <div className="mr-10 h-28 relative">
+        <div className="mr-10 h-32 relative">
     <a
         href={href}
         target="_blank"

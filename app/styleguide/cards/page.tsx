@@ -11,8 +11,6 @@ export default function CardsPage() {
             <StyleguideTemplate
                 title="Cards"
                 description="Kortkomponenter används för att presentera innehåll i sammanhängande block med bild, text och åtgärder."
-                img="/imgs/cars/placeholder.jpg"
-                imgAlt="Placeholderbild för kortkomponenter"
                 codeBlocks={[
                     {
                         language: "TypeScript",
@@ -23,12 +21,11 @@ export default function CardsPage() {
 </Card>`
                     }
                 ]}
-            />
-            <SectionTitle>Exempel</SectionTitle>
-            <Panel className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                exampel ={
+                <Panel className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card img="/imgs/cars/placeholder.jpg" imgAlt="Placeholderbild för bilkort">
                     <CardTitle>Förhandsvisning</CardTitle>
-                    <p>En standardkort-komponent som används i billistningar.</p>
+                    <p>En standardkort-komponent som används i bl.a billistningar.</p>
                     <Button href="/cars">Se bilen</Button>
                 </Card>
                 <Card>
@@ -37,6 +34,23 @@ export default function CardsPage() {
                     <Button href="/admin" variant="warning">Gå till admin</Button>
                 </Card>
             </Panel>
+            }
+                explanations={[
+                    {
+                        label: "img",
+                        description:"Bildens location. Inte ett krav."
+                    },
+                    {
+                        label: "imgAlt",
+                        description:"Alternativ text för bilden. Om img används ska även imgAlt användas"
+                    },
+                    {
+                        label: "CardTitle",
+                        description:"Separat komponent som ofta används tillsammans med Card"
+                    }
+                ]}
+            />
+            
         </div>
     );
 }
