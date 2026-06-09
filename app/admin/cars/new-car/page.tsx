@@ -1,9 +1,10 @@
 import { getUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import PageTitle from "@/app/components/headings/PageTitle";
-import Card from "@/app/components/Card";
 import Button from "@/app/components/Button";
 import NewCarForm from "@/app/components/forms/NewCarForm";
+import PageShell from "@/app/components/PageShell";
+import PanelCard from "@/app/components/PanelCard";
 
 export default async function NewCarPage() {
     const user = await getUser();
@@ -13,14 +14,13 @@ export default async function NewCarPage() {
     }
 
     return (
-        <div className="boxed-content flex flex-col gap-4">
-            <PageTitle>Skapa ny bil</PageTitle>
-            <Card className="p-4">
+        <PageShell title="Skapa ny bil">
+            <PanelCard>
                 <NewCarForm credentials={user.credentials} />
                 <div className="mt-6">
                     <Button href="/admin/cars">Tillbaka till bilar</Button>
                 </div>
-            </Card>
-        </div>
+            </PanelCard>
+        </PageShell>
     );
 }

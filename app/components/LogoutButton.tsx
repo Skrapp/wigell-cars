@@ -3,27 +3,26 @@ import Button from "./Button";
 import { useRouter } from "next/navigation";
 
 type LogoutButtonProps = {
-    className?:string;
-}
+    className?: string;
+};
 
 export default function LogoutButton({
-    className
-}:LogoutButtonProps){
-    
+    className,
+}: LogoutButtonProps) {
     const router = useRouter();
 
-    async function logoutUser(){
+    async function logoutUser() {
         await fetch("/api/logout", {
-    method: "POST",
-    });
+            method: "POST",
+        });
 
-    router.push("/");
-    router.refresh();
+        router.push("/");
+        router.refresh();
     }
 
-    return(
-        <div>
-            <Button onClick={logoutUser}>Logga ut</Button>
-        </div>
-    )
+    return (
+        <Button onClick={logoutUser} variant="destructive" className={className}>
+            Logga ut
+        </Button>
+    );
 }

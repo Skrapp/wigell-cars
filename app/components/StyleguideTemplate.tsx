@@ -34,7 +34,7 @@ export default function StyleguideTemplate({
                 height={500}
             />
             <p>{description}</p>
-            <Panel className='flex flex-col gap-4'>
+            <Panel className='flex flex-col gap-4 w-full'>
                 <SectionTitle>Kod</SectionTitle>
             {codeBlocks.map((block) => (
                 <CodeBlock 

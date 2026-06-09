@@ -35,24 +35,25 @@ export default async function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <header className="flex flex-row ">
+      <body className="min-h-full flex flex-col gap-2">
+        <header className="flex flex-row p-3 justify-center">
           <a href="/">
             <Image 
-              className="p-1"
+              className="p-1 items-end"
               src="/imgs/KoncernLogga.png" 
               alt="Koncern Logga" 
-              width={50} 
-              height={50}
+              width={100} 
+              height={100}
             />
           </a>
-          <Navigation className="flex-2/3" 
+          <Navigation className="flex-2/3 max-w-[1000px]" 
           pages={user 
             ? user.isAdmin 
               ? mainNavigation.concat(userNavigation).concat(adminNavigation)
               : mainNavigation.concat(userNavigation)
             : mainNavigation}/>
           <UserStatus/>
+
         </header>
         <main>{children}</main>
             <AdFooter imageSrc="/imgs/ad-detberorpa.png" href="https://www.linkedin.com/in/tomas-wigell-06343a198/"/>

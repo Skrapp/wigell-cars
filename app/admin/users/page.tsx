@@ -1,30 +1,22 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import PageTitle from "@/app/components/headings/PageTitle";
-import { getBookings, getCars, getUsers } from "@/lib/api";
-import BookingTable from "@/app/components/tables/BookingTable";
-import { BookingView, User, UserCookie } from "@/lib/types";
-import Button from "@/app/components/Button";
 import UserTable from "@/app/components/tables/UserTable";
+import PageShell from "@/app/components/PageShell";
+import { getUser } from "@/lib/auth";
+import { getUsers } from "@/lib/api";
+import Button from "@/app/components/Button";
 
 export default async function UsersPage(){
-    const cookie = await cookies();
-    const userCookie = cookie.get("user");
+    const user = await getUser();
 
-    if(!userCookie) redirect("/login");
-
-    const user:UserCookie = JSON.parse(userCookie.value);
-
-    if(!user.isAdmin) redirect("/login");
+    if (!user || !user.isAdmin) {
+        redirect("/login");
+    }
 
     const users = await getUsers(user.credentials);
 
     return(
-        <div className="boxed-content flex flex-col gap-4">
-            <PageTitle>Adminpanelen - Användare</PageTitle>
-            <div>
-                <UserTable initialUsers={users} credentials={user.credentials}/>
-            </div>
-        </div>
+        <PageShell title="Adminpanelen - Användare" actions={<Button href="/admin">Tillbaka</Button>}>
+            <UserTable initialUsers={users} credentials={user.credentials}/>
+        </PageShell>
     )
 }

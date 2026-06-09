@@ -7,42 +7,27 @@ import { UserCookie } from "@/lib/types";
 import PageShell from "@/app/components/PageShell";
 import PanelCard from "@/app/components/PanelCard";
 
-type UserPageProps = {
-    params: Promise<{
-        userId: string;
-    }>;
-};
 
-export default async function UserPage({
-    params,
-}: UserPageProps) {
+
+export default async function UserPage() {
     const user = await getUser();
 
-    if (!user || !user.isAdmin) {
+    if (!user) {
         redirect("/login");
     }
 
-    const { userId } = await params;
-    const id = Number(userId);
-
-    if (Number.isNaN(id)) {
-        return <p>Ogiltigt ID</p>;
-    }
-
-    const userDetails = await getUserById(id, user.credentials);
+    const userDetails = await getUserById(user.userId, user.credentials);
 
     if (!userDetails) {
-        return <p>Finns ingen användare med id {id}</p>;
+        return <p>Kan inte hämta användare med id: {user.userId}</p>;
     }
-
-    //TODO sida för att redigera roll
 
     return (
         <PageShell title={`Användare: ${userDetails.username}`}>
             <PanelCard>
                 <EditUserForm user={userDetails} credentials={user.credentials} />
                 <div className="mt-4 flex items-center gap-2">
-                    <Button href="/admin/users">Tillbaka till användare</Button>
+                    <Button href="/me">Tillbaka till Mina sidor</Button>
                 </div>
             </PanelCard>
         </PageShell>

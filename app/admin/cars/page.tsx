@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import PageTitle from "@/app/components/headings/PageTitle";
 import Button from "@/app/components/Button";
 import CarTable from "@/app/components/tables/CarTable";
+import PageShell from "@/app/components/PageShell";
 
 export default async function AdminCarsPage() {
     const user = await getUser();
@@ -15,12 +16,8 @@ export default async function AdminCarsPage() {
     const cars = await getCars();
 
     return (
-        <div className="boxed-content flex flex-col gap-4">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <PageTitle>Adminpanelen - Bilar</PageTitle>
-                <Button href="/admin/cars/new-car">Ny bil</Button>
-            </div>
+        <PageShell title="Adminpanelen - Bilar" actions={<Button href="/admin/cars/new-car">Ny bil</Button>}>
             <CarTable initialCars={cars} credentials={user.credentials} />
-        </div>
+        </PageShell>
     );
 }

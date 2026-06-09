@@ -5,8 +5,7 @@ type PanelProps = {
 
 export default function Panel({children, className}:PanelProps){
     return(
-        <div className={`pt-4 pb-4 pl-6 pr-6 
-            bg-silver border-white border-4 
+        <div className={`flex flex-wrap gap-3 items-center bg-white p-4 rounded-lg shadow-sm
             ${className ?? ''}`}>
             {children}
         </div>

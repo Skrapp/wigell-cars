@@ -84,6 +84,28 @@ export async function getActiveBookings(
     }
 }
 
+export async function getUsersBookings(
+    credentials:string
+) : Promise<Booking[]> {
+    try{
+        const response = await fetch(`${baseUrl}/api/v1/bookings/me`, {
+            headers:{
+                "Authorization": `Basic ${credentials}`
+            }
+        });
+
+        if(!response.ok){
+            throw new Error(`Fetch failed: ${response.status} ${response.body?.values}`)
+        }
+        const data = await response.json();
+        return data;
+
+    }catch(error){
+        console.log("Kunde ej hämta bokningar: ", error);
+        return [];
+    }
+}
+
 export async function getBookingById(
     bookingId:number, 
     credentials:string
@@ -158,13 +180,20 @@ export async function createCar(
     credentials:string
 ) {
     try {
-        const response = await fetch(`${baseUrl}/api/v1/cars`, {
+        const response = await fetch(`${baseUrl}/api/v1/cars` +
+    `?name=${encodeURIComponent(newCar.name)}` +
+    `&model=${encodeURIComponent(newCar.model)}` +
+    `&feature1=${encodeURIComponent(newCar.feature1 ?? " ")}` +
+    `&feature2=${encodeURIComponent(newCar.feature2 ?? " ")}` +
+    `&feature3=${encodeURIComponent(newCar.feature3 ?? " ")}` +
+    `&type=${encodeURIComponent(newCar.type)}` +
+    `&price=${newCar.price}` +
+    `&booked=${false}` +
+    `&imageSrc=${encodeURIComponent(newCar.imageSrc)}`, {
             method: "POST",
             headers: {
-                "Authorization": `Basic ${credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Basic ${credentials}`
             },
-            body: JSON.stringify(newCar),
         });
 
         if(!response.ok){

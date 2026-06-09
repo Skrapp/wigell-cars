@@ -35,7 +35,7 @@ export default function Button({
             variantClasses = "bg-warning hover:bg-warning-hover";
             break;
         case "icon":
-            variantClasses = "rounded-full w-10 h-10 p-0 flex items-center justify-center";
+            variantClasses = "rounded-xl w-10 h-10 p-0 flex items-center justify-center";
             break;
         case "standard":
         default:

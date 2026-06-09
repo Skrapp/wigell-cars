@@ -2,9 +2,10 @@ import { getCarById } from "@/lib/api";
 import { getUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import PageTitle from "@/app/components/headings/PageTitle";
-import Card from "@/app/components/Card";
 import Button from "@/app/components/Button";
 import EditCarForm from "@/app/components/forms/EditCarForm";
+import PageShell from "@/app/components/PageShell";
+import PanelCard from "@/app/components/PanelCard";
 
 type CarPageProps = {
     params: Promise<{ carId: string }>;
@@ -31,14 +32,13 @@ export default async function CarPage({ params }: CarPageProps) {
     }
 
     return (
-        <div className="boxed-content flex flex-col gap-4">
-            <PageTitle>Redigera bil: {car.name}</PageTitle>
-            <Card className="p-4">
+        <PageShell title={`Redigera bil: ${car.name}`}>
+            <PanelCard>
                 <EditCarForm car={car} credentials={user.credentials} />
                 <div className="mt-6">
                     <Button href="/admin/cars">Tillbaka till bilar</Button>
                 </div>
-            </Card>
-        </div>
+            </PanelCard>
+        </PageShell>
     );
 }

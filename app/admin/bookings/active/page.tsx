@@ -1,20 +1,18 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import PageTitle from "@/app/components/headings/PageTitle";
 import { getActiveBookings, getCars, getUsers } from "@/lib/api";
 import BookingTable from "@/app/components/tables/BookingTable";
 import { BookingView, UserCookie } from "@/lib/types";
 import Button from "@/app/components/Button";
+import PageShell from "@/app/components/PageShell";
+import { getUser } from "@/lib/auth";
 
 export default async function ActiveBookingsPage(){
-    const cookie = await cookies();
-    const userCookie = cookie.get("user");
+    const user = await getUser();
 
-    if(!userCookie) redirect("/login");
-
-    const user:UserCookie = JSON.parse(userCookie.value);
-
-    if(!user.isAdmin) redirect("/login");
+    if (!user || !user.isAdmin) {
+        redirect("/login");
+    }
 
     const bookings = await getActiveBookings(user.credentials);
     const cars = await getCars();
@@ -39,14 +37,8 @@ export default async function ActiveBookingsPage(){
     })
 
     return(
-        <div className="boxed-content flex flex-col gap-4">
-            <PageTitle>Adminpanelen - Bokningar</PageTitle>
-            <div>
-                <Button href="/admin/bookings">Alla bokningar</Button>
-            </div>
-            <div>
-                <BookingTable initialBookings={bookingViews} credentials={user.credentials}/>
-            </div>
-        </div>
+        <PageShell title="Adminpanelen - Bokningar" actions={<Button href="/admin/bookings">Alla bokningar</Button>}>
+            <BookingTable initialBookings={bookingViews} credentials={user.credentials}/>
+        </PageShell>
     )
 }

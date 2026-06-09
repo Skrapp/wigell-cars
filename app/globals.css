@@ -10,8 +10,8 @@
   --destructive: #c46767;
   --destructive-hover: #d48b8b;
   --destuctive-text: #962323;
-  --warning: #fdff86;
-  --warning-hover: #feffb0;
+  --warning: #e2e477;
+  --warning-hover: #e4e68f;
 } 
 
 @theme inline {
@@ -24,6 +24,8 @@
   --color-destructive: var(--destructive);
   --color-destructive-hover: var(--destructive-hover);
   --color-destructive-text: var(--destructive-text);
+  --color-warning: var(--warning);
+  --color-warning-hover: var(--warning-hover);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -41,9 +43,7 @@ body {
   font-family: var(--font-sans)
 }
 
-main{
-  
-}
+
 
 header{
   background: var(--silver);
